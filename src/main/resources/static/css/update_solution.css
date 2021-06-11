@@ -1,0 +1,14 @@
+@charset "ISO-8859-1";
+
+h2
+{
+	font-size:45px;
+    color: white;
+}
+
+.WholePageDiv
+{
+	background-color: #19334d;
+	padding:50px;
+	height:657px;
+}

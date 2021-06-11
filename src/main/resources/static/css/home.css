@@ -1,0 +1,73 @@
+@charset "ISO-8859-1";
+
+h1 
+{
+  font-size:50px;
+  color: white;
+}
+
+.h1Div 
+{
+  border: 4px ;
+  border-style: groove;
+  border-left-color: #19334d;
+  border-right-color: #19334d;
+  border-top-color: #19334d;
+  background-color: #19334d;
+  text-align: center;
+}
+
+h3 
+{
+  font-size:25px;
+  color: white;
+}
+
+p 
+{
+  color: white;
+  font-size:20px;
+  text-align: left;
+}
+
+.paraDiv 
+{
+  width: 800px;
+  /*float:left;*/
+  padding: 25px;
+  background-color: #19334d;
+  
+}
+
+img 
+{
+  width: 300px;
+  height: 300px;
+}
+
+.imgDiv
+{
+  /*float:right;*/
+  padding: 40px;
+  background-color: #19334d;
+  text-align: center;
+}
+
+.button 
+{
+  background-color: #008CBA;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 23px;
+  cursor: pointer;
+  border-radius:10px;
+}
+
+.buttonDiv
+{
+  padding: 0px;
+  text-align: right;
+}

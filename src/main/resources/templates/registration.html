@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<meta charset="ISO-8859-1">
+	<title>Registration</title>
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	
+	<style type="text/css">
+	
+		.completeDiv
+		{
+ 	 		background-color: #19334d;
+ 	 		height:657px;
+		}
+		
+		h1 
+		{
+  			font-size:50px;
+  			color: white;
+		}
+		
+		.alignCenter
+		{
+		  text-align:center;
+		}
+	
+	</style>
+
+</head>
+
+<body>
+
+<div class="completeDiv">
+
+	<br><br><br>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+
+				<!-- success message -->
+				<div th:if="${param.success}">
+					<div class="alert alert-info">You've successfully registered ! Click on "Login Here" link below.</div>
+				</div>
+
+				<h1 class="alignCenter">Registration</h1><br><br>
+
+				<form th:action="@{/registration}" method="post" th:object="${user}">
+					<div class="form-group">
+						<label class="control-label" for="firstName" style="color:white;font-size:15px;"> First Name </label>
+						<input id="firstName" class="form-control" th:field="*{firstName}"
+							required autofocus="autofocus" />
+					</div>
+
+					<div class="form-group">
+						<label class="control-label" for="lastName" style="color:white;font-size:15px;"> Last Name </label> <input
+							id="lastName" class="form-control" th:field="*{lastName}"
+							required autofocus="autofocus" />
+					</div>
+
+					<div class="form-group">
+						<label class="control-label" for="email" style="color:white;font-size:15px;"> Email </label> <input
+							id="email" class="form-control" th:field="*{email}" required
+							autofocus="autofocus" />
+					</div>
+
+					<div class="form-group">
+						<label class="control-label" for="password" style="color:white;font-size:15px;"> Create Password </label> <input
+							id="password" class="form-control" type="password"
+							th:field="*{password}" required autofocus="autofocus" />
+					</div><br>
+
+					<div class="alignCenter">
+
+					<div class="form-group">
+						<button type="submit" class="btn btn-success">Register</button>
+						
+					</div>
+					<span style="color:white; font-size:18px;">Already registered? <a href="/" style="color: #0099ff;background-color: transparent;text-decoration: underline;" th:href="@{/login}">Login
+								here</a></span> </div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+
+</html>
