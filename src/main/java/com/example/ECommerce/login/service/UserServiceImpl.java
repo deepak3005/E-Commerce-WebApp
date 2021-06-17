@@ -32,15 +32,29 @@ public class UserServiceImpl implements UserService
 		this.userRepository = userRepository;
 	}
 
+	String hardCodedPassKey = "abc123xyz456";
+	
+	String definedRole;
+	
 	@Override
 	public User save(UserRegistrationDto registrationDto) 
-	{
+	{	
+		if(registrationDto.getTxtPassKey()!=null&&registrationDto.getTxtPassKey().equals(hardCodedPassKey))
+		{
+			definedRole = "ROLE_ADMIN";
+		}
+		else
+		{
+			definedRole = "ROLE_USER";
+		}
+		
 		User user = new User(
 				registrationDto.getFirstName(), 
 				registrationDto.getLastName(), 
 				registrationDto.getEmail(), 
 				passwordEncoder.encode(registrationDto.getPassword()), 
-				Arrays.asList(new Role("ROLE_USER")));
+				registrationDto.getTxtPassKey(),
+				Arrays.asList(new Role(definedRole)));
 		return userRepository.save(user);
 	}
 

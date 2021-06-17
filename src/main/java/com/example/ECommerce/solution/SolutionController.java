@@ -23,6 +23,13 @@ public class SolutionController
 		return "adminDashboard";
 	}
 	
+	@GetMapping("/userDashboard")
+	public String viewSolutionsToUser(Model model)
+	{
+		model.addAttribute("listSolutions", solutionService.getAllSolutions());
+		return "userDashboard";
+	}
+	
 	@GetMapping("/adminDashboard/showNewSolutionForm")
 	public String showNewSolutionForm(Model model)
 	{

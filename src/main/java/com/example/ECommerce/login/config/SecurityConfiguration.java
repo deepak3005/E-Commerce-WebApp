@@ -20,6 +20,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private CustomLoginSuccessHandler successHandler;
+	
 	@Bean
     public BCryptPasswordEncoder passwordEncoder() 
 	{
@@ -44,15 +47,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 	@Override
 	protected void configure(HttpSecurity http) throws Exception 
 	{
-		http.authorizeRequests().antMatchers(
+		http.authorizeRequests()
+		.antMatchers(
 				 "/registration**",
 	                "/js/**",
 	                "/css/**",
 	                "/img/**").permitAll()
+		.antMatchers("/adminHome/**").hasAnyAuthority("ROLE_ADMIN")
+		.antMatchers("/userHome/**").hasAnyAuthority("ROLE_USER")
 		.anyRequest().authenticated()
 		.and()
 		.formLogin()
 		.loginPage("/login")
+		.successHandler(successHandler)
 		.permitAll()
 		.and()
 		.logout()

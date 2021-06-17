@@ -26,6 +26,27 @@
 		{
 		  text-align:center;
 		}
+		
+		.checkbox
+		{
+			font-size:15px;
+  			color: white;
+		}
+		
+		.passkey
+		{
+			font-size:15px;
+			font-weight:bold;
+  			color: white;
+  			margin-left:50px;
+		}
+		
+		input.largerCheckbox 
+		{
+            width: 18px;
+            height: 18px;
+        }
+
 	
 	</style>
 
@@ -35,7 +56,7 @@
 
 <div class="completeDiv">
 
-	<br><br><br>
+	<br>
 	
 	<div class="container">
 		<div class="row">
@@ -46,7 +67,7 @@
 					<div class="alert alert-info">You've successfully registered ! Click on "Login Here" link below.</div>
 				</div>
 
-				<h1 class="alignCenter">Registration</h1><br><br>
+				<h1 class="alignCenter">Registration</h1><br>
 
 				<form th:action="@{/registration}" method="post" th:object="${user}">
 					<div class="form-group">
@@ -71,7 +92,33 @@
 						<label class="control-label" for="password" style="color:white;font-size:15px;"> Create Password </label> <input
 							id="password" class="form-control" type="password"
 							th:field="*{password}" required autofocus="autofocus" />
-					</div><br>
+					</div>
+					
+						 <div class="form-row">
+                            <div class="form-group col-sm-4 checkbox">
+                                <script type="text/javascript">
+				    				function EnableAdminLogin(chkPassKey) 
+				    				{
+				        				var txtPassKey = document.getElementById("txtPassKey");
+				        				txtPassKey.disabled = chkPassKey.checked ? false : true;
+				        				if (!txtPassKey.disabled) 
+				        				{
+				        					txtPassKey.focus();
+				        				}
+				    				}
+								</script>
+			    				<input class="largerCheckbox" style="margin-top:10px; margin-left:0px;" type="checkbox" id="chkPassKey" onclick="EnableAdminLogin(this)" />
+								<label for="chkPassKey" style="margin-top:8px; margin-left:7px;"> Register as Admin</label>
+                            </div>
+                            
+                            <div class="form-group col-sm-auto passkey my-1" style="float:right;">
+								<input th:field="*{txtPassKey}" class="form-control" style="width:200px; margin-top:12px;" type="text" id="txtPassKey" placeholder="Admin PassKey" disabled="disabled" />
+                            </div> 
+                            
+                        </div>  
+                        
+                     
+					<br><br><br><br>
 
 					<div class="alignCenter">
 

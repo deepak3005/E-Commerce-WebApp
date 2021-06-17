@@ -1,7 +1,11 @@
 package com.example.ECommerce.login.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import com.example.ECommerce.login.repository.UserRepository;
+import com.example.ECommerce.login.service.UserServiceImpl;
 
 @Controller
 public class MainController 
@@ -12,9 +16,15 @@ public class MainController
 		return "login";
 	}
 	
-	@GetMapping("/")
-	public String home() 
+	@GetMapping("/adminHome")
+	public String adminHome() 
 	{
-		return "home";
+		return "adminHome";
+	}
+	
+	@GetMapping("/userHome")
+	public String userHome() 
+	{
+		return "userHome";
 	}
 }

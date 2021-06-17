@@ -43,6 +43,14 @@ public class ProductController
 		return "productsDashboard";
 	}
 	
+	@RequestMapping("/userDashboard/showSolution/{id}")
+	public String getAllProductsToUser(@PathVariable("id") int solutionId, Model model)
+	{
+		solution_Id = solutionId;
+		model.addAttribute("listProducts", productService.getAllProducts(solutionId));
+		return "userProductsDashboard";
+	}
+	
 	/*@RequestMapping("/adminDashboard/showSolution/{solutionId}/showProduct{id}")
 	public String getProduct(int id, Model model)
 	{

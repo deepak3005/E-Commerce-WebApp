@@ -4,7 +4,7 @@
  
 <html>
 <head>
-  <title>Admin Dashboard</title>
+  <title>User Dashboard</title>
   
   <link rel="stylesheet" href="css/adminDashboard.css">
 
@@ -29,7 +29,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#" th:href="@{/adminHome}">Home</a>
+				<a class="navbar-brand" href="#" th:href="@{/userHome}">Home</a>
 			</div>
 			<div class="floatLogout">
 			<div id="navbar" class="collapse navbar-collapse">
@@ -50,8 +50,6 @@
 	
 	<h1 style="color: white; font-size:50px">Solutions</h1>
 	<hr>
-	<br>
-	<a th:href = "@{/adminDashboard/showNewSolutionForm}" class="btn btn-primary btn-lg mb-3" >+ Add Solution</a>
 	<br><br><br>
 	
 	<table border="4" class = "table table-striped table-responsive-md dashboardTable">
@@ -67,9 +65,7 @@
 				<td th:text="${solution.name}" style="color: white"></td>
 				<td th:text="${solution.description}" style="color: white"></td>
 				<td>
-					<a th:href="@{/adminDashboard/showSolution/{id}(id=${solution.id})}" class="btn btn-success">View</a>
-					<a th:href="@{/adminDashboard/showFormForUpdate/{id}(id=${solution.id})}" class="btn btn-primary">Update</a>
-					<a th:href="@{/adminDashboard/deleteSolution/{id}(id=${solution.id})}" class="btn btn-danger">Delete</a>
+					<a th:href="@{/userDashboard/showSolution/{id}(id=${solution.id})}" class="btn btn-success">View</a>
 				</td>
 			</tr>		
 		</tbody>
