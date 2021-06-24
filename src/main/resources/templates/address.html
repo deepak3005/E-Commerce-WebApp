@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+	<meta charset="ISO-8859-1">
+	<title>Delivery</title>
+	
+	<link rel="stylesheet" href="/css/address.css">
+	
+	<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">	
+
+</head>
+
+<body>
+	
+	<div class="completeDiv">
+	
+		<!-- create navigation bar ( header) -->
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+						aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#" th:href="@{/userDashboard}">Shop</a>
+					<a class="navbar-brand" href="#" th:href="@{/userCart}">Cart</a>
+				</div>
+				<div class="floatLogout">
+				<div id="navbar" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li sec:authorize="isAuthenticated()" style="font-size:18px;"><a th:href="@{/logout}">Logout</a></li>
+					</ul>
+				</div></div>
+			</div>
+		</nav>
+		
+		<br><br><br><br><br>
+		
+		<div class="container my-2">
+		
+			<div class="row">
+			
+				<h1 style="color:white;font-size:44px;">Select a delivery address :</h1>  
+				<br>
+				<h5 style="color:white;font-size:18px;"> Is the address you'd like to use displayed below? If so, click the corresponding "Deliver to this address" button. Or you can enter a new delivery address below.</h5>
+				<hr>
+				<br><br>
+			
+			</div>
+			
+			<div class="row" style="padding-left:15px;">
+			
+				<a th:href="@{/addNewAddress}" class="btn btn-primary btn-lg" style="font-size:20px;">+ Enter a new delivery address</a>
+				<br><br><br><br>
+			
+			</div>
+			
+			<div class="row">
+			
+				<div class="col-sm-6 " th:each="address : ${address}">
+				
+					<div class="col-sm-11 addressdiv">
+					
+						<div class="col-sm-7" style="padding-top:10px;">
+					
+							<p th:text="${address.name}" style="color:white;font-size:24px;font-weight:bold;"></p>
+							<p>
+								<span th:text="${address.houseNumber}" style="color:white;font-size:18px;"></span>
+								<span style="color:white;font-size:18px;">, </span>
+								<span th:text="${address.area}" style="color:white;font-size:18px;"></span>
+							</p>
+							<p>
+								<span th:text="${address.city}" style="color:white;font-size:18px;"></span>
+								<span style="color:white;font-size:18px;"> - </span>
+								<span th:text="${address.pincode}" style="color:white;font-size:18px;"></span>
+							</p>
+							<p th:text="${address.state}" style="color:white;font-size:18px;"></p>
+							<p th:text="${address.country}" style="color:white;font-size:18px;"></p>
+							
+						</div>
+						
+						<div class="col-sm-5">
+						
+							<div class="row" style="text-align:center;padding-top:40px;">
+							
+								<a class="btn btn-success btn-lg" style="font-size:16px;">Deliver to this address</a>
+							
+							</div>
+							
+							<div class="row" style="padding-top:25px;">
+							
+								<div class="col-sm-6" style="text-align:left;padding-left:0px;">
+								
+									<a th:href="@{/showUpdateAddressForm/{id}(id=${address.id})}" class="btn btn-warning btn-lg" style="font-size:16px;width:90px;">Edit</a>
+								
+								</div>
+								
+								<div class="col-sm-6" style="text-align:center;padding-left:7px;">
+								
+									<a th:href="@{/deleteAddress/{id}(id=${address.id})}" class="btn btn-danger btn-lg" style="font-size:16px;width:90px;">Delete</a>
+								
+								</div>
+							
+							</div>
+						
+						</div>
+					
+					</div>
+					
+					<div class="col-sm-1"></div>
+					
+				</div>
+			
+			</div>
+			
+			<div class="row">
+			
+				<br><hr><br><br>
+			
+			</div>
+		
+		</div>
+	
+	</div>
+	
+</body>
+
+</html>

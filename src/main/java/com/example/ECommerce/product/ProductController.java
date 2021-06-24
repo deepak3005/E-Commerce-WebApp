@@ -26,11 +26,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.example.ECommerce.solution.Solution;
+import com.example.ECommerce.solution.SolutionService;
 
 @Controller
 public class ProductController 
 {
 	private int solution_Id = 0;
+	
+	@Autowired
+	private SolutionService solutionService;
 	
 	@Autowired
 	private ProductService productService;
@@ -43,13 +47,15 @@ public class ProductController
 		return "productsDashboard";
 	}
 	
-	@RequestMapping("/userDashboard/showSolution/{id}")
-	public String getAllProductsToUser(@PathVariable("id") int solutionId, Model model)
-	{
-		solution_Id = solutionId;
-		model.addAttribute("listProducts", productService.getAllProducts(solutionId));
-		return "userProductsDashboard";
-	}
+//	@RequestMapping("/userDashboard/showSolution/{id}")
+//	public String getAllProductsToUser(@PathVariable("id") int solutionId, Model model)
+//	{
+//		model.addAttribute("listSolutions", solutionService.getAllSolutions());
+//		
+//		solution_Id = solutionId;
+//		model.addAttribute("listProducts", productService.getAllProducts(solutionId));
+//		return "userDashboard";
+//	}
 	
 	/*@RequestMapping("/adminDashboard/showSolution/{solutionId}/showProduct{id}")
 	public String getProduct(int id, Model model)

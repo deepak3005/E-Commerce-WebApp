@@ -21,6 +21,12 @@ public class ProductServiceImplement implements ProductService
 	private ProductRepository productRepository;
 
 	@Override
+	public List<Product> getAllProducts() 
+	{
+		return productRepository.findAll();
+	}
+	
+	@Override
 	public List<Product> getAllProducts(int solutionId) 
 	{
 		List<Product> Products = new ArrayList<>();
@@ -114,5 +120,7 @@ public class ProductServiceImplement implements ProductService
         
         productRepository.save(product);
 	}
+
+	
 	
 }

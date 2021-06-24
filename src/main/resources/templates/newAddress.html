@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+	<meta charset="ISO-8859-1">
+	<title>New Address</title>
+	
+	<link rel="stylesheet" href="/css/address.css">
+	
+	<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">	
+
+</head>
+
+<body>
+	
+	<div class="completeDiv">
+	
+		<!-- create navigation bar ( header) -->
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+						aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#" th:href="@{/userDashboard}">Shop</a>
+					<a class="navbar-brand" href="#" th:href="@{/userCart}">Cart</a>
+				</div>
+				<div class="floatLogout">
+				<div id="navbar" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li sec:authorize="isAuthenticated()" style="font-size:18px;"><a th:href="@{/logout}">Logout</a></li>
+					</ul>
+				</div></div>
+			</div>
+		</nav>
+		
+		<br><br><br><br><br>
+		
+		<div class="container my-2">
+		
+			<h2 style="color:white;font-size:40px;">Add a new address</h2>
+			<hr>
+			
+			<br><br>
+			
+			<div style="padding-right:600px;">
+				
+				<form action="#" th:action="@{/saveAddress}" th:object="${address}" method="POST">
+				
+					<label for ="name" style="color:white;font-size:15px;">Full Name</label>
+					<input type="text" th:field="*{name}" class="form-control mb-4 col-4" id="name">
+					<br>
+					<label for ="mobile" style="color:white;font-size:15px;">Mobile Number</label>
+					<input type="number" th:field="*{mobile}" class="form-control mb-4 col-4" id="mobile" placeholder="10-digit mobile number without prefixes">
+					<br>
+					<label for ="houseNumber" style="color:white;font-size:15px;">Flat, House no., Building, Company, Apartment</label>
+					<input type="text" th:field="*{houseNumber}" class="form-control mb-4 col-4" id="houseNumber">
+					<br>
+					<label for ="area" style="color:white;font-size:15px;">Area, Colony, Street, Sector, Village</label>
+					<input type="text" th:field="*{area}" class="form-control mb-4 col-4" id="area">
+					<br>
+					<label for ="city" style="color:white;font-size:15px;">Town/City</label>
+					<input type="text" th:field="*{city}" class="form-control mb-4 col-4" id="city">
+					<br>
+					<label for ="pincode" style="color:white;font-size:15px;">PIN Code</label>
+					<input type="number" th:field="*{pincode}" class="form-control mb-4 col-4" id="pincode" placeholder="6 digits [0-9] PIN Code">
+					<br>
+					<label for ="state" style="color:white;font-size:15px;">State</label>
+					<input type="text" th:field="*{state}" class="form-control mb-4 col-4" id="state">
+					<br>
+					<label for ="country" style="color:white;font-size:15px;">Country</label>
+					<input type="text" th:field="*{country}" class="form-control mb-4 col-4" id="country">
+					
+					<br><br><br>
+					<button type="submit" class="btn btn-primary btn-lg col-2">Save Address</button>
+					<br><br><br><br>
+				
+				</form>
+			
+			</div>
+		
+		</div>
+	
+	</div>
+
+</body>
+
+</html>

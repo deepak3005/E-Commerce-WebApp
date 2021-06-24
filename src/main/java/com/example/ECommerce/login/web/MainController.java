@@ -25,6 +25,6 @@ public class MainController
 	@GetMapping("/userHome")
 	public String userHome() 
 	{
-		return "userHome";
+		return "redirect:/userDashboard";
 	}
 }

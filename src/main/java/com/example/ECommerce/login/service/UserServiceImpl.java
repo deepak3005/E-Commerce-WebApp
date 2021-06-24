@@ -1,10 +1,15 @@
 package com.example.ECommerce.login.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,9 +22,14 @@ import com.example.ECommerce.login.model.User;
 import com.example.ECommerce.login.repository.UserRepository;
 import com.example.ECommerce.login.web.dto.UserRegistrationDto;
 
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 @Service
 public class UserServiceImpl implements UserService
 {
+	private User user;
+	
 	@Autowired
 	private UserRepository userRepository;
 	
@@ -35,6 +45,8 @@ public class UserServiceImpl implements UserService
 	String hardCodedPassKey = "abc123xyz456";
 	
 	String definedRole;
+	
+	String UserName;
 	
 	@Override
 	public User save(UserRegistrationDto registrationDto) 
@@ -61,7 +73,8 @@ public class UserServiceImpl implements UserService
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException 
 	{
-		User user = userRepository.findByEmail(username);
+		UserName = username;
+		User user = userRepository.findByEmail(UserName);
 		if(user == null) {
 			throw new UsernameNotFoundException("Invalid username or password");
 		}
@@ -70,6 +83,12 @@ public class UserServiceImpl implements UserService
 	
 	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){
 		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+	}
+	
+	public User getCurrentlyLoggedInUser()
+	{
+		User user = userRepository.findByEmail(UserName);
+		return user;
 	}
 
 }

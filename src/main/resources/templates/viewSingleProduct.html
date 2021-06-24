@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+	<meta charset="ISO-8859-1">
+	<title>Product</title>
+
+	<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+	
+	<style>
+	
+		.completeDiv
+		{
+		  background-color: #19334d;
+		}
+		
+		.floatLogout
+		{
+			float:right;
+		}
+	
+	</style>	
+	
+</head>
+	
+<body>
+	
+	<div class="completeDiv">
+	
+		<!-- create navigation bar ( header) -->
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+						aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#" th:href="@{/userDashboard}">Shop</a>
+					<a class="navbar-brand" href="#" th:href="@{/userCart}">Cart</a>
+				</div>
+				<div class="floatLogout">
+				<div id="navbar" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li sec:authorize="isAuthenticated()" style="font-size:18px;"><a th:href="@{/logout}">Logout</a></li>
+					</ul>
+				</div></div>
+			</div>
+		</nav>
+		
+		<br><br><br><br><br>
+		
+		<div class="container my-2">
+		
+			<div class="row" th:each="product : ${listProducts}">
+			
+				<div class="col-sm-6" style="text-align:right;padding-right:70px;">
+				
+					<img alt="" th:src="*{'data:image/jpeg;base64,'+{product.image}}" style="width: 350px;height: 350px;">
+				
+				</div>
+				
+				<div class="col-sm-6" style="text-align:left;padding-left:70px;padding-right:110px;">
+				
+					<div class="row">
+				
+						<p th:text="${product.name}" style="color:white;font-size:24px;"></p>
+					
+					</div>
+					
+					<div class="row">
+						<br>
+					</div>
+					
+					<div class="row">
+					
+						<div style="padding-left:0px; padding-right:0px;" class="col-sm-5">
+							<p style="color:white;font-size:17px;">Original Price : Rs.</p>
+						</div>
+										
+						<div style="padding-left:0px" class="col-sm-7">
+							<p th:text="${product.originalPrice}" style="color:white;font-size:17px;"></p>
+						</div>
+					
+					</div>
+					
+					<div class="row">
+					
+						<div style="padding-left:0px; padding-right:0px;" class="col-sm-5">
+							<p style="color:white;font-size:17px;">Net Price : Rs.</p>
+						</div>
+										
+						<div style="padding-left:0px"class="col-sm-7">
+							<p th:text="${product.netPrice}" style="color:white;font-size:17px;"></p>
+						</div>
+					
+					</div>
+					
+					<div class="row">
+					
+						<p style="color:white;font-size:15px;">Inclusive of all taxes</p>
+						<p style="color:white;font-size:15px;">No Cost EMI available</p>
+						<p style="color:white;font-size:15px;">Item in stock</p>
+					
+					</div>
+					
+					<div class="row">
+					
+						<p style="color:white;font-size:16px;font-weight:bold;">Specifications :</p>
+						<p th:text="${product.specs}" style="color:white;font-size:16px;">Specifications :</p>
+					
+					</div>
+				
+				</div>
+			
+			</div>
+			
+			<div class="row" style="text-align:center;">
+			
+				<br><br>
+			
+			</div>
+			
+			<div class="row" th:each="product : ${listProducts}" style="text-align:center;">
+			
+				<a th:href="@{/cart/add/{pid}(pid=${product.id})}" class="btn btn-primary btn-lg" style="width:200px;">Add to Cart</a>
+			
+			</div>
+			
+			<div class="row" style="text-align:center;">
+			
+				<br>
+			
+			</div>
+			
+			<div class="row" th:each="product : ${listProducts}" style="text-align:center;">
+			
+				<a class="btn btn-primary btn-lg" style="width:200px;">Buy Now</a>
+			
+			</div>
+		
+		</div>
+		
+		<br><br><br>
+
+	</div>
+
+</body>
+</html>

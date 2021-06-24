@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<meta charset="ISO-8859-1">
+	<title>Cart</title>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	
+	<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+	
+	<style>
+	
+		.completeDiv
+		{
+		  background-color: #19334d;
+		}
+		
+		.floatLogout
+		{
+			float:right;
+		}
+	
+	</style>	
+
+</head>
+
+<body>
+
+	<!-- <script language="JavaScript" type="text/javascript" th:src="@{js/quantity_control.js}"></script> -->
+	
+	<script type="text/javascript">
+	
+		contextPath = "[[@{/}]]";
+		var crsfHeaderName = "[[${_csrf.headerName}]]";
+		var csrfValue = "[[${_csrf.token}]]";
+	
+	</script>
+	
+	<script language="JavaScript" type="text/javascript" th:src="@{js/shopping_cart.js}"></script>
+
+	<div class="completeDiv">
+	
+		<!-- create navigation bar ( header) -->
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+						aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#" th:href="@{/userDashboard}">Shop</a>
+					<a class="navbar-brand" href="#" th:href="@{/userCart}">Cart</a>
+				</div>
+				<div class="floatLogout">
+				<div id="navbar" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li sec:authorize="isAuthenticated()" style="font-size:18px;"><a th:href="@{/logout}">Logout</a></li>
+					</ul>
+				</div></div>
+			</div>
+		</nav>
+		
+		<br><br><br><br><br>
+		
+		<div class="container my-2">
+		
+			<div class="container my-2">
+				<h1 style="color: white; font-size:40px">Your Cart Items</h1>
+				<hr>
+				<br><br> 
+			</div>
+		
+		</div>
+		
+		<div class="container my-2">
+		
+			<div class="col-sm-8">
+			
+				<div class="row" th:each="item : ${cartItems}" th:with="product = ${item.product}">
+				
+					<div class="col-sm-3" style="padding-left:0px;">
+						
+						<br>
+						
+						<div class="row">
+						
+							<img alt="" th:src="*{'data:image/jpeg;base64,'+{product.image}}" style="width: 180px;height: 180px;">
+						
+						</div>				
+					
+					</div>
+									
+					<div class="col-sm-9">
+									
+						<div class="row">
+							<div class="col-sm-12">
+								<a th:href="@{/userDashboard/viewSingleProduct/{id}(id=${product.id})}" th:text="${product.name}" style="color:white;font-size:20px;"></a>
+							</div>
+						</div>
+										
+						<br>
+						
+						<div class="row" style="margin-bottom:8px;">
+							
+							<div class="col-sm-4">
+							
+								<div th:replace="quantity_control :: quantity_control(${item.quantity} , ${item.product.id})">
+						
+								Quantity
+											
+								</div>
+							
+							</div>
+							
+							<div style="padding-left:0px;"class="col-sm-8">
+							
+								<a th:href="@{/userCart}" class="btn btn-primary btn-sm" style="width:120px;font-size:16px;">Update Price</a>
+							
+							</div>
+						
+						</div>
+										
+						<div class="row" style="padding-left:15px;">
+							
+							<span style="color:white;font-size:20px;">*</span>
+							<span style="color:white;font-size:20px;">Rs. [[${product.netPrice}]] /-</span>
+							<span>&nbsp;</span>	
+							<span style="color:white;font-size:20px;">= Rs. </span>						
+							<span th:id="'subtotal' + ${product.id}" class="productSubTotal" style="color:white;font-size:20px;">[[${item.subTotal}]]</span>
+								
+						</div>
+						
+						<br>
+						
+						<div class="row" style="padding-left:15px;">
+						
+							<a th:href="@{/cart/remove/{pid}(pid=${product.id})}" class="btn btn-danger btn-sm" style="font-size:16px;">Remove</a>
+						
+						</div>
+										
+					</div>
+									
+					<!-- <div class="col-sm-3" style="text-align:center;padding-top:60px;">
+						
+						<a class="btn btn-success btn-lg" style="width:200px;">Proceed To Checkout</a>
+						
+					</div> -->
+					
+					<div class="row">
+								
+						<br><br><br><br>
+								
+					</div>
+							
+					<div class="row">
+								
+						<hr style="margin-top: 30px; margin-bottom: 30px;">
+								
+					</div>
+								
+				</div>
+							
+			</div>
+			
+			<div class="col-sm-1"></div>
+			
+			<div class="col-sm-3" style="border-style:solid;border-width:3px;border-color:white;border-radius:20px;padding:20px;">
+			
+				<div>
+					<span style="color:white;font-size:25px;">Estimated Total :</span>
+				</div>
+				
+				<div style="margin-top:10px;">
+					<span id="totalAmount" style="color:white;font-size:22px;"></span>
+				</div>
+				
+				<div>
+					<br><br><br>
+				</div>
+				
+				<div style="text-align:center;">
+					<a th:href="@{/address}" class="btn btn-success btn-lg" style="width:225px;font-size:20px;">Proceed To Checkout</a>
+				</div>
+			
+			</div>
+			
+		</div>	
+		
+		<div><br><br></div>
+		
+	</div>
+	
+</body>
+</html>

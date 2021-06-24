@@ -7,6 +7,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface ProductService 
 {
+	List<Product> getAllProducts();
+	
 	List<Product> getAllProducts(int solutionId);
 
 	void saveProduct(Product product);
