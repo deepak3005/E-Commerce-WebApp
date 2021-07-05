@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.ECommerce.login.model.User;
 import com.example.ECommerce.login.service.UserService;
@@ -65,5 +66,24 @@ public class AddressController
 	{
 		this.addressService.deleteSolutionById(id);
 		return "redirect:/address";
+	}
+	
+	@GetMapping("/paymentMethod/{id}")
+	public String showPaymentMethod(Model model, @PathVariable(value="id") int id)
+	{
+		setAddressSelected(id);
+		return "paymentMethod";
+	}
+	
+	int selected_address_id;
+	
+	public void setAddressSelected(int id)
+	{
+		selected_address_id = id;
+	}
+	
+	public int getAddressSelected()
+	{
+		return selected_address_id;
 	}
 }

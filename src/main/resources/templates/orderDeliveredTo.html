@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+	<meta charset="ISO-8859-1">
+	<title>Ship To</title>
+	
+	<link rel="stylesheet" href="/css/address.css">
+	
+	<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">	
+
+</head>
+
+<body>
+	
+	<div class="completeDiv" style="height:657px;">
+	
+		<br><br><br>
+		
+		<div class="container my-2">
+		
+			<div class="row">
+			
+				<h1 style="color:white;font-size:48px;">Shipping Address</h1>  
+				<br><hr><br><br>
+			
+			</div>
+			
+			<div th:each="address : ${listAddress}" class="row" >
+			
+				<p th:text="${address.name}" style="font-size:28px;color:white;font-weight:bold;"></p>
+				<p>
+					<span th:text="${address.houseNumber}" style="font-size:22px;color:white;"></span>
+					<span style="font-size:22px;color:white;">, </span>
+					<span th:text="${address.area}" style="font-size:22px;color:white;"></span>
+				</p>
+				<p>
+					<span th:text="${address.city}" style="font-size:22px;color:white;"></span>
+					<span style="font-size:22px;color:white;"> - </span>
+					<span th:text="${address.pincode}" style="font-size:22px;color:white;"></span>
+				</p>
+				<p th:text="${address.state}" style="font-size:22px;color:white;"></p>
+				<p th:text="${address.country}" style="font-size:22px;color:white;"></p>
+				<span style="font-size:22px;color:white;">Phone : </span>
+				<span th:text="${address.mobile}" style="font-size:22px;color:white;"></span>
+			
+			</div>
+			
+		</div>	
+	
+	</div>
+	
+</body>
+
+</html>

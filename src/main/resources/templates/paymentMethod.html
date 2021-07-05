@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+	<meta charset="ISO-8859-1">
+	<title>Payment</title>
+	
+	<link rel="stylesheet" href="/css/address.css">
+	
+	<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">	
+
+</head>
+
+<body>
+
+	<div class="completeDiv" style="height:657px;">
+	
+		<div class="container my-2">
+		
+			<div class="row">
+				
+				<br><br><br>
+				<h1 style="color:white;font-size:48px;">Select a payment method :</h1>  
+				<hr>
+				<br><br><br>
+			
+			</div>
+			
+			<div class="row">
+			
+				<div class="col-sm-8" style="border:3px solid white;margin-left:20px;padding-top:25px;padding-bottom:20px;">
+				
+					<div class="form-check">
+				
+						<input class="form-check-input" type="radio" name="flexRadioDefault" id="payNowRadioButton" checked>
+					  	<label style="color:white;font-size:22px;padding-left:10px;" class="form-check-label" for="flexRadioDefault1">Pay Now</label>
+					  	<br><br>
+					  	<input class="form-check-input" type="radio" name="flexRadioDefault" id="codRadioButton">
+					  	<label style="color:white;font-size:22px;padding-left:10px;" class="form-check-label" for="flexRadioDefault1">Cash on Delivery</label>
+						
+					</div>
+				
+				</div>
+			
+				<div class="col-sm-3" style="text-align:center;float:right;margin-right:20px;padding-top:40px;padding-bottom:15px;">
+				
+					<a class="btn btn-warning btn-lg" href="" onclick='paymentModeFunction()' id="myLink" style="font-size:22px;width:225px;">Place Order</a>
+					
+					<script>
+					    function paymentModeFunction()
+					    {
+					        if(document.getElementById('payNowRadioButton').checked) 
+					        {
+					            document.getElementById('myLink').href = "/submitPaymentDetail";
+					        }
+					        if(document.getElementById('codRadioButton').checked) 
+					        {
+					            document.getElementById('myLink').href = "/cashOnDelivery";
+					        }
+					    }
+					</script>
+				
+				</div>
+			
+			</div>
+			
+			<br><br><br><br>
+		
+		</div>
+	
+	</div>
+
+</body>
+
+</html>

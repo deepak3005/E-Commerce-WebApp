@@ -31,8 +31,6 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#" th:href="@{/userDashboard}">Shop</a>
-					<a class="navbar-brand" href="#" th:href="@{/userCart}">Cart</a>
 				</div>
 				<div class="floatLogout">
 				<div id="navbar" class="collapse navbar-collapse">
@@ -92,7 +90,7 @@
 						
 							<div class="row" style="text-align:center;padding-top:40px;">
 							
-								<a class="btn btn-success btn-lg" style="font-size:16px;">Deliver to this address</a>
+								<a th:href="@{/paymentMethod/{id}(id=${address.id})}" class="btn btn-success btn-lg" style="font-size:16px;">Deliver to this address</a>
 							
 							</div>
 							

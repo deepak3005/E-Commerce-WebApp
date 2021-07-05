@@ -104,7 +104,7 @@
 		<tbody>
 			<tr th:each="product : ${listProducts}">
 				<td style="color: white; background-color:#19334d"><img alt="" th:src="*{'data:image/jpeg;base64,'+{product.image}}" style="width: 180px;height: 180px;"></td>
-				<td th:text="${product.name}" style="color: white; background-color:#19334d; padding-top: 80px; width:150px;"></td>
+				<td th:text="${product.name}" style="color: white; background-color:#19334d; padding-top: 20px; padding-bottom: 20px; width:150px;"></td>
 				<td th:text="${product.type}" style="color: white; background-color:#19334d; padding-top: 80px;"></td>
 				<td th:text="${product.specs}" style="color: white; background-color:#19334d; padding-top: 35px; width:180px;"></td>
 				<td th:text="${product.originalPrice}" style="color: white; background-color:#19334d; padding-top: 80px;"></td>

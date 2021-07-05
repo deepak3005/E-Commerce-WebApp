@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<meta charset="ISO-8859-1">
+	<title>Orders</title>
+	
+	<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+	
+	<style>
+	
+		.completeDiv
+		{
+		  background-color: #19334d;
+		}
+		
+		.floatLogout
+		{
+			float:right;
+		}
+		
+		.orderdiv
+		{
+			border:3px solid white;
+			margin-bottom:50px;
+		}
+		
+		.productdiv
+		{
+			border-top:3px solid white;
+			margin-left:15px;
+			margin-right:15px;
+		}
+		
+		/* The Modal (background) */
+		.modal {
+		  display: none; /* Hidden by default */
+		  position: fixed; /* Stay in place */
+		  z-index: 1; /* Sit on top */
+		  padding-top: 200px; /* Location of the box */
+		  left: 0;
+		  top: 0;
+		  width: 100%; /* Full width */
+		  height: 100%; /* Full height */
+		  overflow: auto; /* Enable scroll if needed */
+		  background-color: rgb(0,0,0); /* Fallback color */
+		  background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+		}
+		
+		/* Modal Content */
+		.modal-content {
+		  background-color: white;
+		  margin: auto;
+		  padding: 20px;
+		  border: 2px solid #888;
+		  width: 25%;
+		}
+		
+		/* The Close Button */
+		.close {
+		  color: black;
+		  float: right;
+		  font-size: 28px;
+		  font-weight: bold;
+		}
+		
+		.close:hover,
+		.close:focus {
+		  color: black;
+		  text-decoration: none;
+		  cursor: pointer;
+		}
+	
+	</style>	
+
+</head>
+
+<body>
+
+	<div class="completeDiv">
+	
+		<!-- create navigation bar ( header) -->
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+						aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#" th:href="@{/userDashboard}">Shop</a>
+					<a class="navbar-brand" href="#" th:href="@{/userCart}">Cart</a>
+				</div>
+				<div class="floatLogout">
+				<div id="navbar" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li sec:authorize="isAuthenticated()" style="font-size:18px;"><a th:href="@{/logout}">Logout</a></li>
+					</ul>
+				</div></div>
+			</div>
+		</nav>
+		
+		<br><br><br><br><br>
+		
+		<div class="container my-2">
+		
+				<h1 style="color: white; font-size:44px">My Orders</h1>
+				<hr>
+				<br><br> 
+		
+		</div>
+		
+		<div class="container my-2">
+		
+			<div class="row orderdiv" th:each="item : ${orders}" th:with="product = ${item.product}, address = ${item.address}">
+			
+				<div class="row" style="padding-top:20px;padding-bottom:20px;">
+				
+					<div class="col-sm-3" style="padding-left:50px;">
+					
+						<div class="row">
+						
+							<span style="color:white;font-size:20px;">Order Placed</span>
+						
+						</div>
+						
+						<div class="row" style="padding-top:7px;">
+						
+							<span th:text="${item.dateandtime}" style="color:white;font-size:20px;"></span>
+						
+						</div>
+					
+					</div>
+					
+					<div class="col-sm-7" style="text-align:left;">
+					
+						<div class="row">
+						
+							<span style="color:white;font-size:20px;">Ship To</span>
+						
+						</div>
+						
+						<div class="row" style="padding-top:7px;">
+							
+							<a th:href="@{/orderDeliveredTo/{id}(id=${address.id})}" th:text="${address.name}" style="font-size:20px;color:#80bfff;cursor:pointer;"></a>
+							
+						</div>
+					
+					</div>
+					
+					<div class="col-sm-2" style="padding-left:50px;">
+					
+						<div class="row">
+						
+							<span style="color:white;font-size:20px;">Order Id</span>
+						
+						</div>
+						
+						<div class="row" style="padding-top:7px;">
+						
+							<span th:text="${item.orderId}" style="color:white;font-size:20px;"></span>
+						
+						</div>
+					
+					</div>
+				
+				</div>
+				
+				<div class="row productdiv" style="padding-bottom:20px;">
+				
+					<div class="col-sm-2" style="padding-left:20px;">
+						
+						<br>
+						
+						<div class="row">
+						
+							<img alt="" th:src="*{'data:image/jpeg;base64,'+{product.image}}" style="width: 180px;height: 180px;">
+						
+						</div>				
+					
+					</div>
+									
+					<div class="col-sm-10" style="padding-top:30px;padding-left:80px;">
+									
+						<div class="row">
+							<div class="col-sm-12">
+								<a th:href="@{/userDashboard/viewSingleProduct/{id}(id=${product.id})}" th:text="${product.name}" style="color:white;font-size:20px;"></a>
+							</div>
+						</div>
+										
+						<br>
+						
+						<div class="row" style="margin-bottom:10px;">
+							
+							<span style="color:white;font-size:20px;padding-left:15px;">Price : </span>
+							<span th:text="${product.netPrice}" style="color:white;font-size:20px;"></span>
+							<span style="color:white;font-size:20px;">/-</span>
+						
+						</div>
+										
+						<div class="row" style="padding-left:15px;">
+							
+							<span style="color:white;font-size:20px;">Quantity : </span>
+							<span th:text="${item.quantity}" style="color:white;font-size:20px;"></span>
+							
+						</div>
+										
+					</div>
+				
+				</div>
+			
+			</div>
+		
+		</div>
+		
+	</div>	
+	
+</body>
+</html>	

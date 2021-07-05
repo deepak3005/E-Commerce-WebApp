@@ -56,10 +56,10 @@
 							class="icon-bar"></span>
 					</button>
 					<a class="navbar-brand" href="#" th:href="@{/userDashboard}">Shop</a>
-					<a class="navbar-brand" href="#" th:href="@{/userCart}">Cart</a>
 				</div>
 				<div class="floatLogout">
 				<div id="navbar" class="collapse navbar-collapse">
+					<a class="navbar-brand" href="#" th:href="@{/myOrders}" style="padding-right:30px">My Orders</a>
 					<ul class="nav navbar-nav">
 						<li sec:authorize="isAuthenticated()" style="font-size:18px;"><a th:href="@{/logout}">Logout</a></li>
 					</ul>
