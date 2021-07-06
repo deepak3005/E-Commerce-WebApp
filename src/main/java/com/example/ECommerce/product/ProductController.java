@@ -47,23 +47,6 @@ public class ProductController
 		return "productsDashboard";
 	}
 	
-//	@RequestMapping("/userDashboard/showSolution/{id}")
-//	public String getAllProductsToUser(@PathVariable("id") int solutionId, Model model)
-//	{
-//		model.addAttribute("listSolutions", solutionService.getAllSolutions());
-//		
-//		solution_Id = solutionId;
-//		model.addAttribute("listProducts", productService.getAllProducts(solutionId));
-//		return "userDashboard";
-//	}
-	
-	/*@RequestMapping("/adminDashboard/showSolution/{solutionId}/showProduct{id}")
-	public String getProduct(int id, Model model)
-	{
-		model.addAttribute("listProducts", productService.getProduct(id));
-		return "productsDashboard";
-	}*/
-	
 	@GetMapping("/showNewProductForm")
 	public String showNewProductForm(Model model)
 	{
@@ -71,17 +54,6 @@ public class ProductController
 		model.addAttribute("product", product);
 		return "new_product";
 	}
-	
-	/*@PostMapping("/saveProduct")
-	public String saveProduct(@ModelAttribute("product") Product product, Model model, HttpServletRequest request, final @RequestParam("image") MultipartFile file) throws IOException
-	{
-		product.setSolution(new Solution(solution_Id,"",""));
-		
-		productService.saveProduct(product);
-		
-		model.addAttribute("listProducts", productService.getAllProducts(solution_Id));
-		return "productsDashboard";
-	}*/
 	
 	@PostMapping("/saveProduct")
     public String saveProduct(@RequestParam("name") String name,
@@ -126,7 +98,6 @@ public class ProductController
 	public String deleteProduct(@PathVariable(value="id") int id, Model model)
 	{
 		this.productService.deleteProductById(id);
-		//return "redirect:/adminDashboard";
 		model.addAttribute("listProducts", productService.getAllProducts(solution_Id));
 		return "productsDashboard";
 	}

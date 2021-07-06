@@ -28,26 +28,11 @@ public class ShoppingCartServices
 	
 	public Integer addProduct(int productId, User user)
 	{
-		//int addedQuantity = quantity;
-		
 		int quantity = 1;
 		
 		Product product = productRepo.findById(productId).get();
 		
 		CartItem cartItem = cartRepo.findByUserAndProduct(user, product);
-		
-//		if(cartItem!=null)
-//		{
-//			addedQuantity = cartItem.getQuantity() + quantity;
-//			cartItem.setQuantity(addedQuantity);
-//		}
-//		else
-//		{
-//			cartItem = new CartItem();
-//			cartItem.setQuantity(quantity);
-//			cartItem.setUser(user);
-//			cartItem.setProduct(product);
-//		}
 		
 		if(cartItem==null)
 		{

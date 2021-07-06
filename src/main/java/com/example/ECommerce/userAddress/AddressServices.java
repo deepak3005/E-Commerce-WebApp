@@ -25,8 +25,6 @@ public class AddressServices
 	
 	public List<Address> getAllAddresses(String registeredEmail)
 	{
-		System.out.println("\n\nGot registered email to services : "+registeredEmail+"\n\n");
-		
 		return addressRepository.getAllAddresses(registeredEmail);
 	}
 	

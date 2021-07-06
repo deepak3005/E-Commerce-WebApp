@@ -53,20 +53,6 @@ public class SolutionController
 		return "viewSingleProduct";
 	}
 	
-//	@GetMapping("/userCart")
-//	public String viewUserCart(Model model)
-//	{
-//		//model.addAttribute("listSolutions", solutionService.getAllSolutions());
-//		return "userCart";
-//	}
-	
-//	@RequestMapping("/userDashboard/addProductToCart/{id}")
-//	public String addProductToCart(@PathVariable("id") int productId, Model model)
-//	{
-//		model.addAttribute("listProducts", productService.getProductById(productId));
-//		return "userCart";
-//	}
-	
 	@GetMapping("/adminDashboard/showNewSolutionForm")
 	public String showNewSolutionForm(Model model)
 	{
