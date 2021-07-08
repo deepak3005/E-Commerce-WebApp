@@ -27,126 +27,107 @@ import com.paytm.pg.merchant.PaytmChecksum;
 public class PaymentController 
 {
 	
-	 @Autowired
-	 private PaytmDetailPojo paytmDetailPojo;
-	 
+	@Autowired
+	private PaytmDetailPojo paytmDetailPojo;
+	
 	 @Autowired
 	 private UserService userService;
 	 
 	 @Autowired
 	 private ShoppingCartServices cartService;
-	 
-	 @Autowired
-	 private Environment env;
-	 
-	 @GetMapping("/paidByPaytm")
-	 public String paidByPaytm() 
-	 {
-		return "redirect:/placeOrder";
-	 }
-	 
-	 @GetMapping("/cashOnDelivery")
+	
+	@Autowired
+	private Environment env;
+	
+	@GetMapping("/cashOnDelivery")
 	 public String cod() 
 	 {
 		return "redirect:/placeOrder";
 	 }
 	
+	 @GetMapping("/paidByPaytm")
+	 public String paidByPaytm() 
+	 {
+		return "redirect:/placeOrder";
+	 }
+
 	 @RequestMapping(value = "/submitPaymentDetail")
 	 public ModelAndView getRedirect() throws Exception 
 	 {
 		 
-		 User user = userService.getCurrentlyLoggedInUser();
-		 String customerId = String.valueOf(user.getId());
+		 	User user = userService.getCurrentlyLoggedInUser();
+		 	String customerId = String.valueOf(user.getId());
 		 
-		 double totalTransactionAmount = 0;
+		 	double totalTransactionAmount = 0;
 		 
-		 List<CartItem> cartItems = cartService.listCartItems(user);
-		 for(CartItem item : cartItems)
-		 {
-			 totalTransactionAmount = totalTransactionAmount + item.getSubTotal();
-		 }
-		 String transactionAmount = String.valueOf(totalTransactionAmount);
+		 	List<CartItem> cartItems = cartService.listCartItems(user);
+		 	for(CartItem item : cartItems)
+		 	{
+		 		totalTransactionAmount = totalTransactionAmount + item.getSubTotal();
+		 	}
+		 	String transactionAmount = String.valueOf(totalTransactionAmount);
 		 
-		 String orderId = "1a2b3c";
+		 	String orderId = "1a2b3c";
+		 
 
-	     ModelAndView modelAndView = new ModelAndView("redirect:" + paytmDetailPojo.getPaytmUrl());
-	     
-	     TreeMap<String, String> parameters = new TreeMap<>();
-	     paytmDetailPojo.getDetails().forEach((k, v) -> parameters.put(k, v));
-	     parameters.put("MOBILE_NO", env.getProperty("paytm.mobile"));
-	     parameters.put("EMAIL", env.getProperty("paytm.email"));
-	     parameters.put("ORDER_ID", orderId);
-	     parameters.put("TXN_AMOUNT", transactionAmount);
-	     parameters.put("CUST_ID", customerId);
-	     
-	     String checkSum = getCheckSum(parameters);
-	     parameters.put("CHECKSUMHASH", checkSum);
-	     modelAndView.addAllObjects(parameters);
-	     
-	     return modelAndView;
-	     
-	 }
+	        ModelAndView modelAndView = new ModelAndView("redirect:" + paytmDetailPojo.getPaytmUrl());
+	        TreeMap<String, String> parameters = new TreeMap<>();
+	        paytmDetailPojo.getDetails().forEach((k, v) -> parameters.put(k, v));
+	        parameters.put("MOBILE_NO", env.getProperty("paytm.mobile"));
+	        parameters.put("EMAIL", env.getProperty("paytm.email"));
+	        parameters.put("ORDER_ID", orderId);
+	        parameters.put("TXN_AMOUNT", transactionAmount);
+	        parameters.put("CUST_ID", customerId);
+	        String checkSum = getCheckSum(parameters);
+	        parameters.put("CHECKSUMHASH", checkSum);
+	        modelAndView.addAllObjects(parameters);
+	        return modelAndView;
+	    }
 	 
 	 
 	 @RequestMapping(value = "/pgresponse")
-	 public String getResponseRedirect(HttpServletRequest request, Model model) 
-	 {
+	    public String getResponseRedirect(HttpServletRequest request, Model model) {
 
-	     Map<String, String[]> mapData = request.getParameterMap();
-	     TreeMap<String, String> parameters = new TreeMap<String, String>();
-	     String paytmChecksum = "";
-	     for (Entry<String, String[]> requestParamsEntry : mapData.entrySet()) 
-	     {
-	         if ("CHECKSUMHASH".equalsIgnoreCase(requestParamsEntry.getKey()))
-	         {
-	        	 paytmChecksum = requestParamsEntry.getValue()[0];
-	         } 
-	         else 
-	         {
-	        	 parameters.put(requestParamsEntry.getKey(), requestParamsEntry.getValue()[0]);
-	         }
-	     }
-	     String result;
+	        Map<String, String[]> mapData = request.getParameterMap();
+	        TreeMap<String, String> parameters = new TreeMap<String, String>();
+	        String paytmChecksum = "";
+	        for (Entry<String, String[]> requestParamsEntry : mapData.entrySet()) {
+	            if ("CHECKSUMHASH".equalsIgnoreCase(requestParamsEntry.getKey())){
+	                paytmChecksum = requestParamsEntry.getValue()[0];
+	            } else {
+	            	parameters.put(requestParamsEntry.getKey(), requestParamsEntry.getValue()[0]);
+	            }
+	        }
+	        String result;
 
-	     boolean isValideChecksum = false;
-	     System.out.println("RESULT : "+parameters.toString());
-	     try 
-	     {
-	    	 isValideChecksum = validateCheckSum(parameters, paytmChecksum);
-	         if (isValideChecksum && parameters.containsKey("RESPCODE")) 
-	         {
-	             if (parameters.get("RESPCODE").equals("01")) 
-	             {
-	                 result = "Payment Successful";
-	             } 
-	             else
-	             {
-	                 result = "Payment Failed";
-	             }
-	         } 
-	         else 
-	         {
-	             result = "Checksum mismatched";
-	         }
-	     } 
-	     catch (Exception e) 
-	     {
-	         result = e.toString();
-	     }
-	     model.addAttribute("result",result);
-	     parameters.remove("CHECKSUMHASH");
-	     model.addAttribute("parameters",parameters);
-	     return "paymentReport";
-	 }
+	        boolean isValideChecksum = false;
+	        System.out.println("RESULT : "+parameters.toString());
+	        try {
+	            isValideChecksum = validateCheckSum(parameters, paytmChecksum);
+	            if (isValideChecksum && parameters.containsKey("RESPCODE")) {
+	                if (parameters.get("RESPCODE").equals("01")) {
+	                    result = "Payment Successful";
+	                } else {
+	                    result = "Payment Failed";
+	                }
+	            } else {
+	                result = "Checksum mismatched";
+	            }
+	        } catch (Exception e) {
+	            result = e.toString();
+	        }
+	        model.addAttribute("result",result);
+	        parameters.remove("CHECKSUMHASH");
+	        model.addAttribute("parameters",parameters);
+	        return "paymentReport";
+	    }
 
-	 private boolean validateCheckSum(TreeMap<String, String> parameters, String paytmChecksum) throws Exception 
-	 {
-	     return PaytmChecksum.verifySignature(parameters,paytmDetailPojo.getMerchantKey(), paytmChecksum);
-	 }
-	 
-	 private String getCheckSum(TreeMap<String, String> parameters) throws Exception 
-	 {
-		 return PaytmChecksum.generateSignature(parameters, paytmDetailPojo.getMerchantKey());
-	 }
+	    private boolean validateCheckSum(TreeMap<String, String> parameters, String paytmChecksum) throws Exception {
+	        return PaytmChecksum.verifySignature(parameters,
+	                paytmDetailPojo.getMerchantKey(), paytmChecksum);
+	    }
+	private String getCheckSum(TreeMap<String, String> parameters) throws Exception {
+		return PaytmChecksum.generateSignature(parameters, paytmDetailPojo.getMerchantKey());
+	}
 	
 }

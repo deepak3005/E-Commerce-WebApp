@@ -1,5 +1,6 @@
 package com.example.ECommerce.order;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class OrderController
 	{
 		User user = userService.getCurrentlyLoggedInUser();
 		List<Order> orders = orderService.listOrders(user);
-		
+		Collections.reverse(orders);
 		model.addAttribute("orders", orders);
 		
 		return "myOrders";
